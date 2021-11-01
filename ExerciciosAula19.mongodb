@@ -1,0 +1,153 @@
+> 
+              //Exercicio Base de Dados do Facebook//
+
+//Criando Collection "Usuario"//
+
+db.createCollection("usuarios");
+
+//Adicionando documentos a collection Usuario//
+
+db.usuarios.insertMany([
+  { 'nome':"Luis", 'sobrenome': "Gil", 'senha':"12345", 'cpf':"921-569-872-12", 'idade': "30", 'email': "luisg@gmail.com"},
+  { 'nome':"Ricardo", 'sobrenome': "Jose", 'senha':"789645", 'cpf':"003-989-222-11", 'idade': "25", 'email': "JoseR@gmail.com"},
+  { 'nome':"Pedro", 'sobrenome': "Gil", 'senha':"1234", 'cpf':"111-124-244-12", 'idade': "40", 'email': "gilpedro@gmail.com"},
+  { 'nome':"Cesar", 'sobrenome': "Santos", 'senha':"san1234", 'cpf':"134-009-296-12", 'idade': "50", 'email': "santoscesar@hotmail.com"},
+  { 'nome':"Lucia", 'sobrenome': "Pinheiro", 'senha':"pinheiroL11", 'cpf':"897-145-234-27", 'idade': "38", 'email': "luciapinheiro23@hotmail.com"}
+]);
+
+//Consultando Base de dados Usuarios//
+db.usuarios.find()
+
+//Consultando os nomes de minha collection usuarios//
+
+db.usuarios.distinct("nome");
+db.usuarios.distinct("sobrenome")
+
+//Atualização do campo sobrenome: 'Gil' por 'Bonett'//
+db.usuarios.updateOne(
+    {"sobrenome": "Gil"},
+    {$set:{"sobrenome":"Bonett"}}
+);
+
+    //Criando é inserindo dados na minha collection grupos//
+db.grupos.insert({nome: "Grupo Toti", 
+usuarios: [ 
+  {cpf: "921-569-872-12"}, 
+  {cpf: "003-989-222-11"}, 
+  {cpf:"111-124-244-12"}, 
+  {cpf: "134-009-296-12"}, 
+  {cpf: "897-145-234-27"}
+  ]});
+   //Inserir otros dados na collection utilizando insertMany//
+  db.grupos.insertMany([
+    {nome:"Grupo GitHub", usuario:[
+      {cpf: "900-467-320-20"},
+      {cpf: "001-200-301-24"}, 
+      {cpf:"012-114-245-18"}, 
+      {cpf: "130-001-226-00"}, 
+      {cpf: "999-149-239-33"}]},
+     {nome:"Grupo Front-end", usuario:[
+      {cpf: "100-467-325-40"},
+      {cpf: "201-200-304-65"}, 
+      {cpf:"312-114-243-30"}, 
+      {cpf: "430-001-222-20"}, 
+      {cpf: "599-149-231-80"}]},
+     {nome:"Grupo Back-end", usuario:[
+      {cpf: "900-467-328-45"},
+      {cpf: "101-200-307-64"}, 
+      {cpf:"712-114-246-33"}, 
+      {cpf: "930-001-225-22"}, 
+      {cpf: "399-149-231-10"}]},
+     {nome:"Grupo Ws", usuario:[
+      {cpf: "700-767-328-22"},
+      {cpf: "801-100-357-33"}, 
+      {cpf:"912-414-248-22"}, 
+      {cpf: "230-601-221-01"}, 
+      {cpf: "699-349-254-00"}]}
+  ])
+                //Consultando collection Grupo//
+db.grupos.find()
+
+//consultando por orden alfabetico
+db.grupos.find().sort({
+    isbn: 1
+})
+
+                   //Criando collection post//
+
+db.createCollection("post");
+
+        //Adicionando documentos na collection post//
+
+db.post.insertMany([
+  {tipo:"text", url: "USDI()", titulo: "El Mundo y sus historias", comentarios: [
+    {comentario: "Excelente conteudo", cpf:"699-349-254-00"}],
+    cpf: "921-569-872-12", data_criacao: new Date("2021-09-11")
+  },
+  {tipo:"video", url: "USDI()", titulo: "5 coias que deverias saber do Back-end", comentarios: [
+  {comentario: "Excelente Material, espero publiques algo acerca do Front-End", cpf:"930-001-225-22"}],
+  cpf: "100-467-325-40", data_criacao: new Date("2020-03-09")
+  },
+  {tipo:"text", url: "USDI()", titulo:"Coisas que deberias saber de Github", comentarios: [
+  {comentario: "Continua Publicando post de quealidade", cpf:"001-200-301-24"}],
+  cpf:"999-149-239-33", data_criacao: new Date ("2021-08-29")
+  },
+  {tipo:"video", url: "USDI()", titulo: "Top 5 cursos que deve fazer todo desenvolvedor", comentarios:[
+    {comentario: "Excelente inf. continua asi", cpf:"930-001-225-22"}],
+    cpf:"201-200-304-65", data_criacao: new Date("2017-01-10")
+    },
+    {tipo:"text", url: "USDI()", titulo: "Que é o GitHub", comentarios:[
+    {comentario:"Conteudo muito bom, obrigado.", cpf:"900-467-320-20"},
+    {comentario:"Valeu..", cpf:"712-114-246-33"}],
+    cpf:"101-200-307-64", data_criacao: new Date("2021-08-20")}
+])
+//consultando o titulo: El mundo y sus historias//
+
+db.post.find({titulo:"El Mundo y sus historias"});
+
+//consultando a quantidades de videos na collection post//
+
+db.post.count({ tipo: "video"});
+
+//Consultando dados na minha collection Post//
+db.post.find()
+
+//Criando a Collection Amigos//
+
+db.createCollection("amigos");
+
+//Adicionando dados a minha collection Amigos//
+
+db.amigos.insertMany([
+  {cpf: "921-569-872-12", amigo:[
+  {cpf: "569-789-963-12", nome:"alex", sobrenome: "Calvacante"}]},
+  {cpf:"654-963-656-99", amigos: [
+  {cpf:"456-698-963-11", nome:"Laura", sobrenome: "Silva"}]},
+  {cpf:"789-632-152-36", amigos: [
+  {cpf:"369-451-523-99", nome:"Simon", sobrenome:"Dos Santos"}]},
+  {cpf:"326-961-453-78", amigos: [
+  {cpf:"789-123-526-78", nome:"Angel", sobrenome: "Lopes"}]},
+  {cpf:"129-781-636-99", amigos: [
+  {cpf:"963-125-633-15", nome: "Rebeca",sobrenome: "Almeida"}]}
+])
+
+//Consultando dados de minha collection Amigos//
+db.amigos.find()
+
+//Consultando a collection amigos os cpf que final 12//
+db.amigos.find({cpf: /-12$/});
+
+//deletar um documento em uma collection//
+
+db.amigos.remove({"_id": ObjectId("617c958072d5953d59f8dd6d")});
+
+//Deletar uma Collections//
+
+db.post.drop()
+
+//verificar que todos os documentos foram deletados//
+
+db.post.find()
+
+//Exercicios Finalizado//
+//Termino 29/10/2021 hora: 21:34pm
